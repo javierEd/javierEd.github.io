@@ -1,0 +1,23 @@
+[application]
+tailwind_input = "style.css"
+tailwind_output = "assets/style.css"
+
+[web.app]
+
+# HTML title tag content
+title = "Javier E. - Software Developer"
+
+# include `assets` in web platform
+[web.resource]
+
+# Additional CSS style files
+style = []
+
+# Additional JavaScript files
+script = []
+
+[web.resource.dev]
+
+# Javascript code file
+# serve: [dev-server] only
+script = []

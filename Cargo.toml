@@ -1,0 +1,12 @@
+[package]
+name = "website"
+version = "0.0.0-alpha.0"
+authors = ["Javier E. <jaedns@gmail.com>"]
+edition = "2024"
+
+[dependencies]
+dioxus = { version = "0.7.0-rc.0", features = ["router"] }
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
