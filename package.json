@@ -4,8 +4,8 @@
         "watch": "npx @tailwindcss/cli --minify --input ./style.css --output ./assets/style.css --watch"
     },
     "dependencies": {
-        "@tailwindcss/cli": "^4.1.12",
-        "daisyui": "^5.1.5",
-        "tailwindcss": "^4.1.12"
+        "@tailwindcss/cli": "^4.1.14",
+        "daisyui": "^5.5.0",
+        "tailwindcss": "^4.1.14"
     }
 }

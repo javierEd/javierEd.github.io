@@ -1,6 +1,4 @@
 [application]
-tailwind_input = "style.css"
-tailwind_output = "assets/style.css"
 
 [web.app]
 

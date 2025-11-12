@@ -35,11 +35,12 @@ jobs:
               with:
                   node-version: 22
                   cache: npm
-            - run: cargo binstall -y dioxus-cli@0.7.0-rc.0
+            - run: cargo binstall -y dioxus-cli@0.7.1
             - run: rustup target add wasm32-unknown-unknown
             - run: npm ci
             - run: npm run build
-            - run: dx bundle --web --ssg --release
+            - run: dx build --web --fullstack true --ssg --release
+            - run: cp ./target/dx/website/release/web/public/home/index.html ./target/dx/website/release/web/public/index.html
             - uses: actions/upload-pages-artifact@v3
               with:
                   path: ./target/dx/website/release/web/public
