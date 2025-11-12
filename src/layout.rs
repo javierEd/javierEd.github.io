@@ -1,9 +1,8 @@
 use dioxus::prelude::*;
 
-use crate::{
-    LOGO_PNG, Routes,
-    icons::{GitHubIcon, LinkedInIcon},
-};
+use crate::components::JobTitlesCarousel;
+use crate::icons::{GitHubIcon, LinkedInIcon};
+use crate::{LOGO_PNG, Routes};
 
 #[component]
 pub fn Layout() -> Element {
@@ -15,8 +14,13 @@ pub fn Layout() -> Element {
                     to: Routes::home(),
                     img { class: "h-8 rounded", src: LOGO_PNG }
 
-                    span { "Javier E." }
-                    span { class: "max-sm:hidden", " - Software Developer" }
+                    div {
+                        "Javier E."
+                        span { class: "max-sm:hidden",
+                            " - "
+                            JobTitlesCarousel {}
+                        }
+                    }
                 }
             }
 
