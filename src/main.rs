@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 
+mod icons;
 mod layout;
 mod pages;
 
