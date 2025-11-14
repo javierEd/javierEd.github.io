@@ -15,6 +15,10 @@
     color-scheme: light;
 }
 
+@utility footer {
+    @apply md:footer-horizontal bg-base-200 p-10 justify-between;
+}
+
 @utility h1 {
     @apply text-3xl font-bold mb-6;
 }
@@ -35,4 +39,8 @@
     div {
         @apply overflow-hidden w-max;
     }
+}
+
+@utility main {
+    @apply max-w-[1300px] w-full mx-auto p-4;
 }

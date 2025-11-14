@@ -4,9 +4,15 @@ version = "0.0.0-alpha.0"
 authors = ["Javier E. <jaedns@gmail.com>"]
 edition = "2024"
 
+[build-dependencies]
+chrono = "0.4.42"
+
 [dependencies]
 dioxus = { version = "0.7.1", features = ["fullstack", "router"] }
+dioxus-i18n = { git = "https://github.com/javierEd/dioxus-i18n.git", branch = "custom" }
+dioxus-sdk = { version = "0.7.0", features = ["storage"] }
 gloo-timers = { version = "0.3.0", features = ["futures"] }
+unic-langid = { version = "0.9.6", features = ["serde"] }
 web-sys = { version = "0.3.82", features = [
     "HtmlDivElement",
     "HtmlSpanElement",

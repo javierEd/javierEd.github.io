@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
+use dioxus_i18n::t;
 
 use crate::components::{JobTitlesCarousel, PageTitle};
-use crate::hooks::use_job_title;
 
 #[component]
 pub fn FakeHomePage() -> Element {
@@ -10,24 +10,22 @@ pub fn FakeHomePage() -> Element {
 
 #[component]
 pub fn HomePage() -> Element {
-    let job_title = use_job_title();
-
     rsx! {
-        PageTitle { "Home" }
+        PageTitle { {t!("home")} }
 
         section { class: "hero p-4",
             div { class: "hero-content text-center",
                 div {
-                    h1 { class: "h1", "Hello there!" }
+                    h1 { class: "h1", {t!("hello-there")} }
 
-                    h2 { class: "h2", "I'm Javier E." }
+                    h2 { class: "h2", {t!("im-javier")} }
 
                     h3 { class: "h3",
-                        "A "
-
+                        {t!("a")}
+                        " "
                         JobTitlesCarousel {}
-
-                        " with some years of experience."
+                        " "
+                        {t!("with-some-years-of-experience")}
                     }
                 }
             }
