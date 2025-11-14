@@ -1,17 +1,18 @@
 use dioxus::prelude::*;
 use dioxus_i18n::prelude::{I18nConfig, use_init_i18n};
-use dioxus_sdk::storage::{LocalStorage, use_synced_storage};
+use dioxus_sdk::storage::{LocalStorage, use_storage};
 use unic_langid::{LanguageIdentifier, langid};
 
 use crate::Routes;
-use crate::constants::{FAVICON_ICO, JOB_TITLES, STYLE_CSS};
+use crate::constants::{FAVICON_ICO, JOB_TITLES, LOGO_PNG, STYLE_CSS};
 use crate::hooks::JobTitle;
 
 #[component]
 pub fn App() -> Element {
+    let mut is_starting = use_signal(|| true);
     let mut job_title_index = use_signal(|| 0);
     let job_title = use_memo(move || JOB_TITLES[job_title_index()].to_owned());
-    let language = use_synced_storage::<LocalStorage, LanguageIdentifier>("_language".to_owned(), || langid!("en"));
+    let language = use_storage::<LocalStorage, LanguageIdentifier>("_language".to_owned(), || langid!("en"));
 
     let mut i18n = use_init_i18n(|| {
         I18nConfig::new(language())
@@ -22,6 +23,10 @@ pub fn App() -> Element {
 
     use_effect(move || {
         i18n.set_language(language());
+    });
+
+    use_effect(move || {
+        is_starting.set(false);
     });
 
     use_future(move || async move {
@@ -38,6 +43,15 @@ pub fn App() -> Element {
     rsx! {
         document::Link { rel: "icon", href: FAVICON_ICO }
         document::Link { rel: "stylesheet", href: STYLE_CSS }
+
         Router::<Routes> {}
+
+        div { class: "splash", class: if !is_starting() { "splash-hidden" },
+            figure {
+                div { class: "splash-pulse" }
+
+                img { src: LOGO_PNG }
+            }
+        }
     }
 }

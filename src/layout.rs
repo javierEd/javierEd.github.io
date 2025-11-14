@@ -4,7 +4,7 @@ use crate::Routes;
 use crate::components::JobTitlesCarousel;
 use crate::constants::{COPYRIGHT, LANGUAGE_NAMES, LOGO_PNG};
 use crate::hooks::use_language;
-use crate::icons::{ChevronUpMini, GitHubIcon, LinkedInIcon};
+use crate::icons::{CheckMini, ChevronUpMini, GitHubIcon, LinkedInIcon};
 
 #[component]
 pub fn Layout() -> Element {
@@ -72,19 +72,24 @@ pub fn Layout() -> Element {
                 nav {
                     div { class: "dropdown dropdown-top",
                         button {
-                            class: "btn btn-outline btn-accent",
+                            class: "btn btn-outline btn-accent w-30 justify-between",
                             tabindex: "0",
                             {language_name()}
                             ChevronUpMini {}
                         }
 
                         ul {
-                            class: "dropdown-content menu bg-base-100 rounded-box w-28 p-2 shadow",
+                            class: "dropdown-content menu bg-base-100 rounded-box w-30 p-2 shadow",
                             tabindex: "0",
                             for (id , name) in LANGUAGE_NAMES.iter() {
-                                li { class: if language() == *id { "hidden" },
-                                    a { onclick: move |_| language.set((*id).to_owned()),
+                                li { class: if language() == *id { "menu-active" },
+                                    a {
+                                        class: "flex justify-between",
+                                        onclick: move |_| language.set((*id).to_owned()),
                                         {*name}
+                                        if language() == *id {
+                                            CheckMini {}
+                                        }
                                     }
                                 }
                             }

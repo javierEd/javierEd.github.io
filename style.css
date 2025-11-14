@@ -44,3 +44,52 @@
 @utility main {
     @apply max-w-[1300px] w-full mx-auto p-4;
 }
+
+@utility splash {
+    @apply flex items-center justify-center fixed inset-[0] z-1000 bg-black;
+
+    transition:
+        visibility 0s 0.3s,
+        background-color 0.3s;
+
+    .splash-pulse {
+        @apply bottom-[14px] left-[14px] m-auto h-[100px] w-[100px] rounded animate-[splash-pulse_1.5s_infinite];
+    }
+
+    figure {
+        @apply block h-[128px] w-[128px] relative;
+    }
+
+    img {
+        @apply block h-auto w-full rounded;
+    }
+
+    img,
+    .splash-pulse {
+        @apply absolute;
+
+        transition:
+            visibility 0s 0.3s,
+            opacity 0.3s;
+    }
+
+    &.splash-hidden {
+        @apply bg-[#0000] invisible;
+    }
+
+    &.splash-hidden img,
+    &.splash-hidden .splash-pulse {
+        @apply invisible opacity-0;
+    }
+}
+
+@keyframes splash-pulse {
+    0% {
+        background-color: #333;
+        box-shadow: 0 0 0 0px #333;
+    }
+    100% {
+        background-color: #3333;
+        box-shadow: 0 0 0 64px #3333;
+    }
+}
