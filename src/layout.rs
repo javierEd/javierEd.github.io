@@ -78,14 +78,14 @@ pub fn Layout() -> Element {
                 nav {
                     div { class: "dropdown dropdown-top",
                         button {
-                            class: "btn btn-outline btn-accent w-30 justify-between",
+                            class: "btn btn-outline btn-accent w-36 justify-between",
                             tabindex: "0",
                             {language_name()}
                             ChevronUpMini {}
                         }
 
                         ul {
-                            class: "dropdown-content menu bg-base-100 rounded-box w-30 p-2 shadow",
+                            class: "dropdown-content menu bg-base-100 rounded-box w-36 p-2 mb-2 border-solid border border-accent",
                             tabindex: "0",
                             for (id , name) in language_names() {
                                 li { class: if i18n.language() == *id { "menu-active" },

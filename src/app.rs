@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 use dioxus_i18n::prelude::{I18nConfig, use_init_i18n};
-use dioxus_sdk::storage::{LocalStorage, use_storage};
+use dioxus_sdk::storage::{LocalStorage, get_from_storage, use_synced_storage};
 use unic_langid::{LanguageIdentifier, langid};
 
 use crate::Routes;
@@ -13,10 +13,11 @@ pub fn App() -> Element {
     let mut job_title_index = use_signal(|| 0);
     let job_title = use_memo(move || JOB_TITLES[job_title_index()].to_owned());
     let mut language_storage =
-        use_storage::<LocalStorage, LanguageIdentifier>("_language".to_owned(), || langid!("en"));
+        use_synced_storage::<LocalStorage, Option<LanguageIdentifier>>("_language".to_owned(), || None);
+    let storage_loaded = use_memo(move || language_storage().is_some() || !is_starting());
 
-    let i18n = use_init_i18n(|| {
-        I18nConfig::new(language_storage())
+    let mut i18n = use_init_i18n(|| {
+        I18nConfig::new(langid!("en"))
             .with_fallback(langid!("es"))
             .with_locale((langid!("en"), include_str!("../locales/en.ftl")))
             .with_locale((langid!("es"), include_str!("../locales/es.ftl")))
@@ -24,7 +25,17 @@ pub fn App() -> Element {
     });
 
     use_effect(move || {
-        language_storage.set(i18n.language());
+        if storage_loaded()
+            && let Some(language) = &*language_storage.peek()
+        {
+            i18n.set_language(language.clone());
+        }
+    });
+
+    use_effect(move || {
+        if storage_loaded() {
+            language_storage.set(Some(i18n.language()));
+        }
     });
 
     use_effect(move || {
