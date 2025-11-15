@@ -1,15 +1,21 @@
 use dioxus::prelude::*;
+use dioxus_i18n::prelude::i18n;
 
 use crate::Routes;
 use crate::components::JobTitlesCarousel;
 use crate::constants::{COPYRIGHT, LANGUAGE_NAMES, LOGO_PNG};
-use crate::hooks::use_language;
 use crate::icons::{CheckMini, ChevronUpMini, GitHubIcon, LinkedInIcon};
 
 #[component]
 pub fn Layout() -> Element {
-    let mut language = use_language();
-    let language_name = use_memo(move || *LANGUAGE_NAMES.get(&language()).unwrap());
+    let mut i18n = i18n();
+    let language_name = use_memo(move || *LANGUAGE_NAMES.get(&i18n.language()).unwrap());
+
+    let language_names = || {
+        let mut names = LANGUAGE_NAMES.iter().collect::<Vec<_>>();
+        names.sort_by_key(|(_, name)| *name);
+        names
+    };
 
     rsx! {
         div { class: "flex flex-col min-h-screen",
@@ -81,13 +87,13 @@ pub fn Layout() -> Element {
                         ul {
                             class: "dropdown-content menu bg-base-100 rounded-box w-30 p-2 shadow",
                             tabindex: "0",
-                            for (id , name) in LANGUAGE_NAMES.iter() {
-                                li { class: if language() == *id { "menu-active" },
+                            for (id , name) in language_names() {
+                                li { class: if i18n.language() == *id { "menu-active" },
                                     a {
                                         class: "flex justify-between",
-                                        onclick: move |_| language.set((*id).to_owned()),
+                                        onclick: move |_| i18n.set_language(id.clone()),
                                         {*name}
-                                        if language() == *id {
+                                        if i18n.language() == *id {
                                             CheckMini {}
                                         }
                                     }

@@ -1,8 +1,6 @@
-use std::{fmt::Display, str::FromStr};
+use std::fmt::Display;
 
 use dioxus::prelude::*;
-use dioxus_sdk::storage::{LocalStorage, use_storage};
-use unic_langid::{LanguageIdentifier, langid};
 
 #[derive(Clone)]
 pub struct JobTitle(pub Memo<String>);
@@ -21,8 +19,4 @@ impl Display for JobTitle {
 
 pub fn use_job_title() -> JobTitle {
     use_context::<JobTitle>()
-}
-
-pub fn use_language() -> Signal<LanguageIdentifier> {
-    use_context()
 }

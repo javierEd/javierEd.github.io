@@ -13,6 +13,7 @@ pub static LANGUAGE_NAMES: LazyLock<HashMap<LanguageIdentifier, &str>> = LazyLoc
     let mut language_names = HashMap::new();
     language_names.insert(langid!("en"), "English");
     language_names.insert(langid!("es"), "Español");
+    language_names.insert(langid!("pt"), "Português");
     language_names
 });
 

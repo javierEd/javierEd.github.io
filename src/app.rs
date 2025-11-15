@@ -12,17 +12,19 @@ pub fn App() -> Element {
     let mut is_starting = use_signal(|| true);
     let mut job_title_index = use_signal(|| 0);
     let job_title = use_memo(move || JOB_TITLES[job_title_index()].to_owned());
-    let language = use_storage::<LocalStorage, LanguageIdentifier>("_language".to_owned(), || langid!("en"));
+    let mut language_storage =
+        use_storage::<LocalStorage, LanguageIdentifier>("_language".to_owned(), || langid!("en"));
 
-    let mut i18n = use_init_i18n(|| {
-        I18nConfig::new(language())
+    let i18n = use_init_i18n(|| {
+        I18nConfig::new(language_storage())
             .with_fallback(langid!("es"))
             .with_locale((langid!("en"), include_str!("../locales/en.ftl")))
             .with_locale((langid!("es"), include_str!("../locales/es.ftl")))
+            .with_locale((langid!("pt"), include_str!("../locales/pt.ftl")))
     });
 
     use_effect(move || {
-        i18n.set_language(language());
+        language_storage.set(i18n.language());
     });
 
     use_effect(move || {
@@ -38,7 +40,6 @@ pub fn App() -> Element {
     });
 
     use_context_provider(|| JobTitle(job_title));
-    use_context_provider(|| language);
 
     rsx! {
         document::Link { rel: "icon", href: FAVICON_ICO }
