@@ -10,7 +10,7 @@ mod pages;
 
 use app::App;
 use layout::Layout;
-use pages::{FakeHomePage, HomePage};
+use pages::{AboutPage, FakeHomePage, HomePage};
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
@@ -18,11 +18,17 @@ enum Routes {
     #[layout(Layout)]
         #[route("/")]
         FakeHomePage,
+        #[route("/about")]
+        AboutPage,
         #[route("/home")]
         HomePage,
 }
 
 impl Routes {
+    fn about() -> Self {
+        Self::AboutPage
+    }
+
     fn home() -> Self {
         Self::FakeHomePage
     }

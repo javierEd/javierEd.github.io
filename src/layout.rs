@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 use dioxus_i18n::prelude::i18n;
+use dioxus_i18n::t;
 
 use crate::Routes;
 use crate::components::JobTitlesCarousel;
@@ -20,23 +21,35 @@ pub fn Layout() -> Element {
     rsx! {
         div { class: "flex flex-col min-h-screen",
             div { class: "navbar bg-base-300",
-                div { class: "navbar-start flex-1",
+                div { class: "navbar-start max-sm:w-fit",
                     Link {
                         class: "flex gap-3 p-2 font-bold text-lg",
                         to: Routes::home(),
                         img { class: "h-8 rounded", src: LOGO_PNG }
 
-                        div {
+                        div { class: "max-sm:hidden",
                             "Javier E."
-                            span { class: "max-sm:hidden",
-                                " - "
+                            span { class: "max-md:hidden opacity-66",
+                                " ["
                                 JobTitlesCarousel {}
+                                "]"
                             }
                         }
                     }
                 }
 
-                div { class: "navbar-end flex-0 gap-2",
+                div { class: "navbar-center flex-1",
+                    ul { class: "menu menu-horizontal",
+                        li {
+                            Link { to: Routes::home(), {t!("home")} }
+                        }
+                        li {
+                            Link { to: Routes::about(), {t!("about-me")} }
+                        }
+                    }
+                }
+
+                div { class: "navbar-end gap-2 w-fit",
                     a {
                         class: "btn btn-circle btn-ghost",
                         href: "https://github.com/javierEd",

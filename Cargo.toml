@@ -8,8 +8,10 @@ edition = "2024"
 chrono = "0.4.42"
 
 [dependencies]
+chrono = { version = "0.4.42", features = ["unstable-locales"] }
+convert_case = "0.9.0"
 dioxus = { version = "0.7.1", features = ["fullstack", "router"] }
-dioxus-i18n = { git = "https://github.com/javierEd/dioxus-i18n.git", branch = "custom" }
+dioxus-i18n = "0.5.0"
 dioxus-sdk = { version = "0.7.0", features = ["storage"] }
 gloo-timers = { version = "0.3.0", features = ["futures"] }
 unic-langid = { version = "0.9.6", features = ["serde"] }

@@ -101,6 +101,6 @@ pub fn PageTitle(children: Element) -> Element {
     };
 
     rsx! {
-        document::Title { "{page_title} | Javier E. - {job_title}" }
+        document::Title { "{page_title} | Javier E. [{job_title}]" }
     }
 }
